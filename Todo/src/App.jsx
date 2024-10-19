@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import EditModal from "./components/EditModal";
+import Search from "./components/Search";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -48,12 +49,7 @@ function App() {
     <div>
       <h1 className="text-3xl font-bold">Todo List</h1>
       {/* Search input */}
-      <input
-        value={searchTerm}
-        placeholder="Search Tasks"
-        className="bg-gray-200 p-3 m-2 w-full"
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {/* Input for adding new task */}
       <input
