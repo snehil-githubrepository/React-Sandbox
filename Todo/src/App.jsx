@@ -5,7 +5,6 @@ import EditModal from "./components/EditModal";
 function App() {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
-  const [editInput, setEditInput] = useState("");
   const [editIndex, setEditIndex] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,18 +18,16 @@ function App() {
   };
 
   const editTodo = (index) => {
-    setEditInput(todos[index]);
     setEditIndex(index);
     setIsModalOpen(true);
   };
 
-  const updateTodo = () => {
-    if (editIndex !== null && editInput.trim()) {
+  const updateTodo = (updatedTodo) => {
+    if (editIndex !== null && updatedTodo.trim()) {
       const updatedTodos = todos.map(
-        (todo, index) => (index === editIndex ? editInput : todo) // Update the todo at editIndex
+        (todo, index) => (index === editIndex ? updatedTodo : todo) // Update the todo at editIndex
       );
       setTodos(updatedTodos);
-      setEditInput("");
       setEditIndex(null); // Reset editIndex after updating
       setIsModalOpen(false);
     }
@@ -77,7 +74,7 @@ function App() {
         {filteredTodos.map((todo, index) => (
           <li
             key={index}
-            className="flex items-center justify-between bg-gray-100 p-2 m-2 rounded-md shadow-sm"
+            className="flex items-center justify-between bg-gray-800 text-white p-2 m-2 rounded-md shadow-sm"
           >
             <span className="flex-1">{todo}</span>
             <div className="flex gap-2">
@@ -109,8 +106,7 @@ function App() {
       <EditModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        input={editInput}
-        setInput={setEditInput}
+        initialInput={editIndex !== null ? todos[editIndex] : ""}
         updateTodo={updateTodo}
       />
     </div>
